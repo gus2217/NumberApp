@@ -29,9 +29,9 @@ namespace MathProject.Repository
         {
             var existingNumber = _mathDbContext.Numbers.FirstOrDefault(n => n.Number == num);
             if (existingNumber != null)
-            {
+            
                 return existingNumber; // Return cached result
-            }
+            
 
             // Compute properties if not found in DB
             var properties = new List<string>();
@@ -75,6 +75,10 @@ namespace MathProject.Repository
 
         public bool IsPrime(int n)
         {
+        
+
+            
+
             if (n < 2) return false;
             for (int i = 2; i <= Math.Sqrt(n); i++)
             {

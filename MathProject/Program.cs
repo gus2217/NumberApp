@@ -19,16 +19,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("http://localhost:4200") // Allow Angular frontend
-                                .AllowAnyHeader()
-                                .AllowAnyMethod();
-                      });
-});
+
 
 
 var app = builder.Build();
@@ -44,7 +35,14 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors(options =>
+{
+    options.AllowAnyHeader();
+    options.AllowAnyMethod();
+    options.AllowAnyOrigin();
+    //options.WithOrigins("http://localhost:4200/");
+});
+app.MapControllers();
 
 app.MapControllers();
 
